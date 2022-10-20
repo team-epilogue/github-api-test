@@ -2,6 +2,7 @@
   <div v-if="token">
     <button class="button" @click="logout">logout</button>
     <div class="token">{{ token }}</div>
+    <button class="button" @click="moveToList">리스트 이동</button>
   </div>
   <div v-else>
     <button class="button" @click="login">
@@ -31,7 +32,14 @@ export default {
       window.location.href = url;
     },
     login: function () {
-      this.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&scope=repo`);
+      this.redirect(
+        `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&scope=repo`
+      );
+    },
+    moveToList() {
+      this.$router.push({
+        path: `/list`,
+      });
     },
   },
 };
