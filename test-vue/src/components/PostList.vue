@@ -14,22 +14,26 @@ export default {
   name: "App",
   data() {
     return {
+      token: "",
       postList: [],
     };
   },
+  created() {},
   mounted() {
+    if (localStorage.getItem("token")) {
+      this.token = localStorage.getItem("token");
+    }
     this.getList();
   },
   methods: {
     getList() {
       axios({
         method: "get",
-        //테스트라 url이 내거로 고정임
+        //테스트라 url이라 내거로 고정임 / huni-hun < git계정 / testRepo < repo 이름 / contentes < api 양식 / post < 탐색 경로
         url: `https://api.github.com/repos/huni-hun/testRepo/contents/post`,
         headers: {
           accept: "application/vnd.hithun+json",
-          //테스트라 토큰이 내거로 고정임
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer ` + this.token,
         },
       }).then((res) => {
         console.log(res);
@@ -43,12 +47,11 @@ export default {
     setItem(path, i) {
       axios({
         method: "get",
-        //테스트라 url이 내거로 고정임
+        //테스트라 url이라 내거로 고정임 / huni-hun < git계정 / testRepo < repo 이름 / contentes < api 양식
         url: `https://api.github.com/repos/huni-hun/testRepo/contents/` + path,
         headers: {
           accept: "application/vnd.hithun+json",
-          //테스트라 토큰이 내거로 고정임
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer ` + this.token,
         },
       }).then((res) => {
         this.postList[i] = Base64.decode(res.data.content);
