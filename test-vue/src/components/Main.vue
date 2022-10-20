@@ -1,7 +1,10 @@
 <template>
-  <div v-if="token">
+  <div v-if="token && id">
     <button class="button" @click="logout">logout</button>
     <div class="token">{{ token }}</div>
+    <div class="userid">{{ id }}</div>
+
+    <button class="button" @click="fileupload">file upload</button>
   </div>
   <div v-else>
     <button class="button" @click="login">
@@ -15,23 +18,30 @@ export default {
   data() {
     return {
       token: "",
+      id: "",
     };
   },
   created() {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token") && localStorage.getItem("id")) {
       this.token = localStorage.getItem("token");
+      this.id = localStorage.getItem("id");
     }
   },
   methods: {
     logout() {
       localStorage.removeItem("token");
+      localStorage.removeItem("id");
       this.token = "";
+      this.id = "";
     },
-    redirect: function (url) {
+    redirect(url) {
       window.location.href = url;
     },
-    login: function () {
+    login() {
       this.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&scope=repo`);
+    },
+    fileupload() {
+      this.$router.push("/fileupload");
     },
   },
 };
@@ -57,5 +67,11 @@ export default {
 .token {
   font-size: 20px;
   text-align: left;
+  margin-bottom: 5px;
+}
+.userid {
+  font-size: 20px;
+  text-align: left;
+  margin-bottom: 30px;
 }
 </style>
