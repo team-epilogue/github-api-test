@@ -6,6 +6,7 @@
 
     <button class="button" @click="fileupload">file upload</button>
     <button class="button" @click="moveToList">리스트 이동</button>
+    <button class="button" @click="repocreate">레포 만들기</button>
   </div>
   <div v-else>
     <button class="button" @click="login">
@@ -48,6 +49,9 @@ export default {
     },
     fileupload() {
       this.$router.push("/fileupload");
+    },
+    repocreate() {
+      this.$router.push("/repocreate");
     },
   },
 };
