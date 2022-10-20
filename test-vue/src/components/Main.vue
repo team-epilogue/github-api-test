@@ -40,6 +40,7 @@ export default {
     },
     login() {
       this.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&scope=repo`);
+    },
     moveToList() {
       this.$router.push({
         path: `/list`,
