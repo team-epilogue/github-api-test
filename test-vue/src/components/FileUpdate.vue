@@ -1,36 +1,37 @@
 <template>
   <div>
-    <h1>File update</h1>
-    <div v-if="repoList">
-      <label for="repo">레포지토리 :</label>
-      <ul id="repo">
-        <li v-for="(item, index) in repoList" v-bind:key="index" @click="selectRepo(item)">
-          <div>{{ item }}</div>
-        </li>
-        <!-- <button class="button" @click="select">선택</button> -->
-      </ul>
-      <!-- <input id="repo" type="text" /> -->
-      <!-- <button class="button" @click="fileupload">repository 선택</button> -->
-      <div v-if="selectedRepo">
-        <!-- <button class="button" @click="fileupload">repository 선택</button> -->
-        <br />
-        <label for="dir">폴더 경로 :</label>
-        <input id="dir" type="text" v-model="dir" />
-        <!-- <button class="button" @click="fileupload">폴더 경로</button> -->
-        <button class="button" @click="check">조회</button>
+    <h1>파일 수정</h1>
+    <div style="display: flex">
+      <div style="flex: 1; border-right: dashed 2px #979797">
+        <div v-if="repoList">
+          <label for="repo">레포지토리</label>
+          <ul id="repo">
+            <li v-for="(item, index) in repoList" v-bind:key="index" @click="selectRepo(item)">
+              <div>{{ item }}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div style="flex: 1">
+        <div v-if="selectedRepo">
+          <br />
+          <label for="dir">폴더 경로 : </label>
+          <input id="dir" type="text" v-model="dir" style="width: 300px" />
+          <button @click="check" style="margin-left: 5px">조회</button>
 
-        <ul v-if="files" id="filedir">
-          <li v-for="(item, index) in files" v-bind:key="index" @click="select(item)">
-            <div>{{ item }}</div>
-          </li>
-          <!-- <button class="button" @click="select">선택</button> -->
-        </ul>
+          <ul v-if="files" id="filedir">
+            <li v-for="(item, index) in files" v-bind:key="index" @click="select(item)">
+              <div>{{ item }}</div>
+            </li>
+          </ul>
 
-        <div v-if="selected">
-          <label for="content">내용 :</label>
-          <textarea id="content" rows="8" cols="85" v-model="content"></textarea>
-
-          <button class="button" @click="update">업데이트</button>
+          <div v-if="selected" style="margin-top: 15px">
+            <label for="content">내용</label>
+            <br />
+            <textarea id="content" rows="40" cols="70" v-model="content"></textarea>
+            <br />
+            <button class="button" @click="update">업데이트</button>
+          </div>
         </div>
       </div>
     </div>
@@ -173,5 +174,22 @@ li div {
 #filedir li div:hover {
   background-color: tomato;
   color: #fff;
+}
+
+.button {
+  width: 100px;
+  height: 50px;
+  font-weight: bold;
+  font-size: 20px;
+  background: #6d7e85;
+  color: white;
+  border-radius: 10px;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.button:hover {
+  cursor: pointer;
+  background-color: #9ab4bf;
 }
 </style>
