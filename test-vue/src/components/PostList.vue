@@ -54,7 +54,7 @@ export default {
           Authorization: `Bearer ` + this.token,
         },
       }).then((res) => {
-        this.postList[i] = Base64.decode(res.data.content);
+        this.postList[i] = Base64.decode(res.data);
         console.log(this.postList[i]);
       });
     },
