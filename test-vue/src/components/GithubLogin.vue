@@ -28,7 +28,8 @@ export default {
             .then((response) => {
               localStorage.setItem("token", res.data);
               localStorage.setItem("id", response.data.login);
-              alert("토큰받기 성공");
+              localStorage.setItem("image", response.data.avatar_url);
+
               this.$router.push("/");
             })
             .catch(() => {
