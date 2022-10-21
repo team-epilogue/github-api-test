@@ -4,7 +4,8 @@
     <div class="token">{{ token }}</div>
     <div class="userid">{{ id }}</div>
 
-    <button class="button" @click="fileupload">file upload</button>
+    <button class="button" @click="fileupload">upload file</button>
+    <button class="button" @click="fileupdate">update file</button>
     <button class="button" @click="moveToList">리스트 이동</button>
     <button class="button" @click="repocreate">레포 만들기</button>
   </div>
@@ -50,6 +51,9 @@ export default {
     fileupload() {
       this.$router.push("/fileupload");
     },
+    fileupdate() {
+      this.$router.push("/fileupdate");
+     },
     repocreate() {
       this.$router.push("/repocreate");
     },
