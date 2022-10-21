@@ -15,7 +15,7 @@
         <!-- <button class="button" @click="fileupload">repository 선택</button> -->
         <br />
         <label for="dir">폴더 경로 :</label>
-        <input id="dir" type="text" />
+        <input id="dir" type="text" v-model="dir" />
         <!-- <button class="button" @click="fileupload">폴더 경로</button> -->
         <button class="button" @click="check">조회</button>
 
@@ -51,6 +51,7 @@ export default {
       repoList: [],
       content: "",
       sha: "",
+      dir: "",
     };
   },
   created() {
@@ -74,15 +75,24 @@ export default {
       this.$router.push("/");
     }
   },
+  watch: {
+    dir: function () {
+      this.selected = "";
+      this.files = [];
+    },
+  },
   methods: {
     selectRepo(item) {
+      this.selected = "";
+      this.files = [];
+      this.dir = "";
       this.selectedRepo = item;
     },
     check() {
       this.files = [];
       this.selected = "";
       axios({
-        url: `https://api.github.com/repos/${this.id}/${this.selectedRepo}/contents/${document.getElementById("dir").value}`,
+        url: `https://api.github.com/repos/${this.id}/${this.selectedRepo}/contents/${this.dir}`,
         method: "get",
       })
         .then(({ data }) => {
@@ -99,7 +109,7 @@ export default {
     select(item) {
       this.selected = item;
       axios({
-        url: `https://api.github.com/repos/${this.id}/${this.selectedRepo}/contents/${document.getElementById("dir").value}/${this.selected}`,
+        url: `https://api.github.com/repos/${this.id}/${this.selectedRepo}/contents/${this.dir}/${this.selected}`,
         method: "get",
       })
         .then(({ data }) => {
@@ -113,7 +123,7 @@ export default {
     update() {
       let content = window.btoa(unescape(encodeURIComponent(this.content)));
       axios({
-        url: `https://api.github.com/repos/${this.id}/${this.selectedRepo}/contents/${document.getElementById("dir").value}/${this.selected}`,
+        url: `https://api.github.com/repos/${this.id}/${this.selectedRepo}/contents/${this.dir}/${this.selected}`,
         method: "put",
         headers: {
           Authorization: `Bearer ${this.token}`,
@@ -141,15 +151,12 @@ ul {
   list-style-type: none;
   background-color: #ccc;
   padding: 0;
+  width: 500px;
   margin: auto;
   margin-top: 10px;
 }
 
-#repo {
-  width: 500px;
-}
-
-#repo li div {
+li div {
   text-decoration: none;
   display: block;
   color: #000;
@@ -161,19 +168,6 @@ ul {
 #repo li div:hover {
   background-color: #c7df83;
   color: #fff;
-}
-
-#filedir {
-  width: 200px;
-}
-
-#filedir li div {
-  text-decoration: none;
-  display: block;
-  color: #000;
-  padding: 8px 15px 8px 15px;
-  font-weight: bold;
-  border-bottom: 1px solid #fff;
 }
 
 #filedir li div:hover {
