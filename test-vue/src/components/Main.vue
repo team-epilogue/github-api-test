@@ -4,7 +4,8 @@
     <div class="token">{{ token }}</div>
     <div class="userid">{{ id }}</div>
 
-    <button class="button" @click="fileupload">file upload</button>
+    <button class="button" @click="fileupload">upload file</button>
+    <button class="button" @click="fileupdate">update file</button>
     <button class="button" @click="moveToList">리스트 이동</button>
   </div>
   <div v-else>
@@ -40,6 +41,7 @@ export default {
     },
     login() {
       this.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&scope=repo`);
+    },
     moveToList() {
       this.$router.push({
         path: `/list`,
@@ -47,6 +49,9 @@ export default {
     },
     fileupload() {
       this.$router.push("/fileupload");
+    },
+    fileupdate() {
+      this.$router.push("/fileupdate");
     },
   },
 };
